@@ -6,6 +6,8 @@ import com.salesianos.dam.gestiondepeliculas.repository.DirectorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DirectorService {
@@ -17,6 +19,19 @@ public class DirectorService {
         Director d = editDirectorDto.to();
 
         return directorRepository.save(d);
+    }
+
+    public List<Director> getAllDirectores() {
+
+        List<Director> result = directorRepository.findAll();
+
+        return result;
+    }
+
+    public Director getDirectorById(Long id) {
+
+        return directorRepository.findById(id).orElse(null);
+
     }
 
 }

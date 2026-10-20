@@ -2,13 +2,14 @@ package com.salesianos.dam.gestiondepeliculas.controller;
 
 import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
 import com.salesianos.dam.gestiondepeliculas.dto.director.GetDirectorDetail;
+import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.service.DirectorService;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,5 +27,22 @@ public class DirectorController {
 
     }
 
+    @GetMapping
+    public ResponseEntity<List<GetDirectorDetail>> getAllDirectores() {
+
+        List<Director> result = directorService.getAllDirectores();
+        return ResponseEntity.ok(
+                result
+                        .stream()
+                        .map(GetDirectorDetail::of)
+                        .toList());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GetDirectorDetail> getDirectorById(@PathVariable @Min(value = 1) Long id) {
+
+        return ResponseEntity.ok(GetDirectorDetail.of(directorService.getDirectorById(id)));
+
+    }
 
 }
