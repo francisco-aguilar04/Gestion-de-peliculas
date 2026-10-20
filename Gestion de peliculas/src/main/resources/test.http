@@ -1,6 +1,17 @@
+### POST Crear director
 POST http://localhost:8080/director
 
 {
-  "name": "Paco",
-  "anioNacimiento": 2004
+  "name": "Guillermo del Toro",
+  "anioNacimiento": 1964
+}
+
+### POST Crear pelicula
+POST http://localhost:8080/pelicula
+
+{
+  "titulo": "El laberinto del fauno",
+  "genero": "Fantasía",
+  "fechaEstreno": "2006-10-11",
+  "directorId": 1
 }
