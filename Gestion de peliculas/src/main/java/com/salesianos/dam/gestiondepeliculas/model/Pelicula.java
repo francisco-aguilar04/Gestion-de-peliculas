@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -26,5 +28,8 @@ public class Pelicula {
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_pelicula_director"))
     private Director director;
 
+    @ManyToMany
+    @Builder.Default
+    private Set<Actor> actores = new HashSet<>();
 
 }
