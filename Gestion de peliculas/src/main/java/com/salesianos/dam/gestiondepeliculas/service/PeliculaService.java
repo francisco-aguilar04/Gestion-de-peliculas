@@ -1,7 +1,7 @@
 package com.salesianos.dam.gestiondepeliculas.service;
 
-import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.EditPeliculaDto;
+import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.PeliculaNoEncontradaException;
 import com.salesianos.dam.gestiondepeliculas.model.Actor;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.model.Pelicula;
@@ -10,7 +10,6 @@ import com.salesianos.dam.gestiondepeliculas.repository.DirectorRepository;
 import com.salesianos.dam.gestiondepeliculas.repository.PeliculaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +51,8 @@ public class PeliculaService {
 
     public Pelicula getPeliculaById(Long id) {
 
-        return peliculaRepository.findById(id).orElse(null);
+        return peliculaRepository.findById(id)
+                .orElseThrow(() -> new PeliculaNoEncontradaException("No se encontró la película de id " + id));
 
     }
 
@@ -64,7 +64,8 @@ public class PeliculaService {
                     Optional.ofNullable(editPeliculaDto.genero()).ifPresent(p::setGenero);
                     Optional.ofNullable(editPeliculaDto.fechaEstreno()).ifPresent(p::setFechaEstreno);
                     return peliculaRepository.save(p);
-                }).orElse(null);
+                })
+                .orElseThrow(() -> new PeliculaNoEncontradaException("No se encontró la película de id " + id));
     }
 
     public void deletePelicula(Long id) {
