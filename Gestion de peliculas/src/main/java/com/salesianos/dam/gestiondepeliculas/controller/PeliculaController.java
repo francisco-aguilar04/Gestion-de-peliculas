@@ -1,5 +1,6 @@
 package com.salesianos.dam.gestiondepeliculas.controller;
 
+import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
 import com.salesianos.dam.gestiondepeliculas.dto.director.GetDirectorDetail;
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.EditPeliculaDto;
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.GetPeliculaDetail;
@@ -9,12 +10,7 @@ import com.salesianos.dam.gestiondepeliculas.service.PeliculaService;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -59,6 +55,17 @@ public class PeliculaController {
     public ResponseEntity<GetPeliculaDetail> getPeliculaById(@PathVariable @Min(value = 1) Long id) {
 
         return ResponseEntity.ok(GetPeliculaDetail.of(peliculaService.getPeliculaById(id)));
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<GetPeliculaDetail> updatePelicula(
+            @PathVariable Long id,
+            @RequestBody EditPeliculaDto pelicula) {
+
+        return ResponseEntity.ok(
+                GetPeliculaDetail.of(peliculaService.updatePelicula(id, pelicula)));
+
 
     }
 

@@ -1,5 +1,6 @@
 package com.salesianos.dam.gestiondepeliculas.service;
 
+import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.EditPeliculaDto;
 import com.salesianos.dam.gestiondepeliculas.model.Actor;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +54,17 @@ public class PeliculaService {
 
         return peliculaRepository.findById(id).orElse(null);
 
+    }
+
+    public Pelicula updatePelicula(Long id, EditPeliculaDto editPeliculaDto) {
+
+        return peliculaRepository.findById(id)
+                .map(p -> {
+                    Optional.ofNullable(editPeliculaDto.titulo()).ifPresent(p::setTitulo);
+                    Optional.ofNullable(editPeliculaDto.genero()).ifPresent(p::setGenero);
+                    Optional.ofNullable(editPeliculaDto.fechaEstreno()).ifPresent(p::setFechaEstreno);
+                    return peliculaRepository.save(p);
+                }).orElse(null);
     }
 
 }
