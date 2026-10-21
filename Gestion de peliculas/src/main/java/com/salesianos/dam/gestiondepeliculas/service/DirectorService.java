@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +34,16 @@ public class DirectorService {
         return directorRepository.findById(id).orElse(null);
 
     }
+
+    public Director updateDirector(Long id, EditDirectorDto editDirectorDto) {
+
+        return directorRepository.findById(id)
+                .map(d -> {
+                    Optional.ofNullable(editDirectorDto.name()).ifPresent(d::setName);
+                    Optional.ofNullable(editDirectorDto.anioNacimiento()).ifPresent(d::setAnioNacimiento);
+                    return directorRepository.save(d);
+                }).orElse(null);
+    }
+
 
 }

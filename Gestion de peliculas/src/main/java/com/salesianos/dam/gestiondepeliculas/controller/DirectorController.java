@@ -45,4 +45,15 @@ public class DirectorController {
 
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<GetDirectorDetail> updateDirector(
+            @PathVariable Long id,
+            @RequestBody EditDirectorDto director) {
+
+        return ResponseEntity.ok(
+                GetDirectorDetail.of(directorService.updateDirector(id, director)));
+
+
+    }
+
 }
