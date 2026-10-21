@@ -46,3 +46,21 @@ GET http://localhost:8080/api/v1/peliculas
 
 ### GET Traer pelicula según ID
 GET http://localhost:8080/api/v1/peliculas/1
+
+
+
+
+### PUT Actualizar director
+PUT http://localhost:8080/director/1
+
+{
+    "name": "Jaime Pistola"
+}
+
+### PUT Actualizar pelicula
+PUT http://localhost:8080/api/v1/peliculas/1
+
+{
+"titulo": "La mazmorra del fauno",
+"genero": "Comedia"
+}
