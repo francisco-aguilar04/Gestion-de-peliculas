@@ -2,6 +2,7 @@ package com.salesianos.dam.gestiondepeliculas.service;
 
 import com.salesianos.dam.gestiondepeliculas.dto.actor.EditActorDto;
 import com.salesianos.dam.gestiondepeliculas.model.Actor;
+import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.repository.ActorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,16 @@ public class ActorService {
         return actorRepository.save(a);
     }
 
+    public List<Actor> getAllActores() {
+
+        List<Actor> result = actorRepository.findAll();
+
+        return result;
+    }
+
+    public Actor getActorById(Long id) {
+
+        return actorRepository.findById(id).orElse(null);
+
+    }
 }
