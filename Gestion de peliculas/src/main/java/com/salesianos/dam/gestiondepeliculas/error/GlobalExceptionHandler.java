@@ -4,6 +4,7 @@ import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.ActorNoEncontrad
 import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.DirectorNoEncontradoException;
 import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.PeliculaNoEncontradaException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -50,10 +51,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(PeliculaYaExistenteException.class)
     public ProblemDetail handlePeliculaYaExistente(PeliculaYaExistenteException ex) {
 
-        ProblemDetail problem = ProblemDetail.forStatus(409);
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.CONFLICT);
         problem.setTitle("Ya existe una película con ese título");
         problem.setDetail(ex.getMessage());
-        problem.setType(URI.create("https://example.com/errors/not-found"));
+        problem.setType(URI.create("https://example.com/errors/conflict"));
 
         return problem;
     }
@@ -61,10 +62,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ActorYaEnRepartoException.class)
     public ProblemDetail handleActorYaExistente(ActorYaEnRepartoException ex) {
 
-        ProblemDetail problem = ProblemDetail.forStatus(409);
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.CONFLICT);
         problem.setTitle("El actor ya está en el reparto");
         problem.setDetail(ex.getMessage());
-        problem.setType(URI.create("https://example.com/errors/not-found"));
+        problem.setType(URI.create("https://example.com/errors/conflict"));
 
         return problem;
     }
