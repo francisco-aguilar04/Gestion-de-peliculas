@@ -58,11 +58,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return problem;
     }
 
-    @ExceptionHandler(PeliculaYaExistenteException.class)
-    public ProblemDetail handleActorYaExistente(PeliculaYaExistenteException ex) {
+    @ExceptionHandler(ActorYaEnRepartoException.class)
+    public ProblemDetail handleActorYaExistente(ActorYaEnRepartoException ex) {
 
         ProblemDetail problem = ProblemDetail.forStatus(409);
-        problem.setTitle("Ya existe una película con ese título");
+        problem.setTitle("El actor ya está en el reparto");
         problem.setDetail(ex.getMessage());
         problem.setType(URI.create("https://example.com/errors/not-found"));
 

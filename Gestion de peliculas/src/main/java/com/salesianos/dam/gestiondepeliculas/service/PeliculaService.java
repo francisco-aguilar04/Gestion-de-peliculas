@@ -1,6 +1,8 @@
 package com.salesianos.dam.gestiondepeliculas.service;
 
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.EditPeliculaDto;
+import com.salesianos.dam.gestiondepeliculas.error.ActorYaEnRepartoException;
+import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.ActorNoEncontradoException;
 import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.DirectorNoEncontradoException;
 import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.PeliculaNoEncontradaException;
 import com.salesianos.dam.gestiondepeliculas.error.PeliculaYaExistenteException;
@@ -46,8 +48,18 @@ public class PeliculaService {
 
     public Pelicula addActorToPelicula(Long peliculaId, Long actorId) {
 
-        Pelicula p = peliculaRepository.getReferenceById(peliculaId);
-        Actor a = actorRepository.getReferenceById(actorId);
+        Pelicula p = getPeliculaById(peliculaId);
+
+        Actor a = actorRepository.findById(actorId)
+                .orElseThrow(() -> new ActorNoEncontradoException(
+                        "No se encontró el actor de id " + actorId));
+
+        if (p.getActores().contains(a)) {
+
+            throw new ActorYaEnRepartoException(
+                    "El actor de id " + actorId + " ya está en el reparto de la película");
+
+        }
 
         p.getActores().add(a);
 
