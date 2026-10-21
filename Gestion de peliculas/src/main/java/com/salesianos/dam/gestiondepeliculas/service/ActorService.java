@@ -1,8 +1,8 @@
 package com.salesianos.dam.gestiondepeliculas.service;
 
 import com.salesianos.dam.gestiondepeliculas.dto.actor.EditActorDto;
+import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.ActorNoEncontradoException;
 import com.salesianos.dam.gestiondepeliculas.model.Actor;
-import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.repository.ActorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,8 @@ public class ActorService {
 
     public Actor getActorById(Long id) {
 
-        return actorRepository.findById(id).orElse(null);
+        return actorRepository.findById(id)
+                .orElseThrow(() -> new ActorNoEncontradoException("No se encontró al actor de id " + id));
 
     }
 }

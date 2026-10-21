@@ -1,7 +1,11 @@
 package com.salesianos.dam.gestiondepeliculas.service;
 
-import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.EditPeliculaDto;
+import com.salesianos.dam.gestiondepeliculas.error.ActorYaEnRepartoException;
+import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.ActorNoEncontradoException;
+import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.DirectorNoEncontradoException;
+import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.PeliculaNoEncontradaException;
+import com.salesianos.dam.gestiondepeliculas.error.PeliculaYaExistenteException;
 import com.salesianos.dam.gestiondepeliculas.model.Actor;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.model.Pelicula;
@@ -10,7 +14,6 @@ import com.salesianos.dam.gestiondepeliculas.repository.DirectorRepository;
 import com.salesianos.dam.gestiondepeliculas.repository.PeliculaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +28,19 @@ public class PeliculaService {
 
     public Pelicula addPelicula(EditPeliculaDto editPeliculaDto) {
 
-        Director d = directorRepository.getReferenceById(editPeliculaDto.directorId());
+        if (peliculaRepository.existsByTitulo(editPeliculaDto.titulo())) {
+
+            throw new PeliculaYaExistenteException(
+                    "Ya existe una película con el título " + editPeliculaDto.titulo());
+
+        }
+
+        Director d = directorRepository.findById(editPeliculaDto.directorId())
+                .orElseThrow(() -> new DirectorNoEncontradoException (
+                        "No se encontró el director de id " + editPeliculaDto.directorId()));
+
         Pelicula p = editPeliculaDto.to(d);
+
 
         return peliculaRepository.save(p);
 
@@ -34,8 +48,18 @@ public class PeliculaService {
 
     public Pelicula addActorToPelicula(Long peliculaId, Long actorId) {
 
-        Pelicula p = peliculaRepository.getReferenceById(peliculaId);
-        Actor a = actorRepository.getReferenceById(actorId);
+        Pelicula p = getPeliculaById(peliculaId);
+
+        Actor a = actorRepository.findById(actorId)
+                .orElseThrow(() -> new ActorNoEncontradoException(
+                        "No se encontró el actor de id " + actorId));
+
+        if (p.getActores().contains(a)) {
+
+            throw new ActorYaEnRepartoException(
+                    "El actor de id " + actorId + " ya está en el reparto de la película");
+
+        }
 
         p.getActores().add(a);
 
@@ -52,7 +76,8 @@ public class PeliculaService {
 
     public Pelicula getPeliculaById(Long id) {
 
-        return peliculaRepository.findById(id).orElse(null);
+        return peliculaRepository.findById(id)
+                .orElseThrow(() -> new PeliculaNoEncontradaException("No se encontró la película de id " + id));
 
     }
 
@@ -64,7 +89,8 @@ public class PeliculaService {
                     Optional.ofNullable(editPeliculaDto.genero()).ifPresent(p::setGenero);
                     Optional.ofNullable(editPeliculaDto.fechaEstreno()).ifPresent(p::setFechaEstreno);
                     return peliculaRepository.save(p);
-                }).orElse(null);
+                })
+                .orElseThrow(() -> new PeliculaNoEncontradaException("No se encontró la película de id " + id));
     }
 
     public void deletePelicula(Long id) {
