@@ -1,7 +1,9 @@
 package com.salesianos.dam.gestiondepeliculas.service;
 
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.EditPeliculaDto;
+import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.DirectorNoEncontradoException;
 import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.PeliculaNoEncontradaException;
+import com.salesianos.dam.gestiondepeliculas.error.PeliculaYaExistenteException;
 import com.salesianos.dam.gestiondepeliculas.model.Actor;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.model.Pelicula;
@@ -24,8 +26,19 @@ public class PeliculaService {
 
     public Pelicula addPelicula(EditPeliculaDto editPeliculaDto) {
 
-        Director d = directorRepository.getReferenceById(editPeliculaDto.directorId());
+        if (peliculaRepository.existsByTitulo(editPeliculaDto.titulo())) {
+
+            throw new PeliculaYaExistenteException(
+                    "Ya existe una película con el título " + editPeliculaDto.titulo());
+
+        }
+
+        Director d = directorRepository.findById(editPeliculaDto.directorId())
+                .orElseThrow(() -> new DirectorNoEncontradoException (
+                        "No se encontró el director de id " + editPeliculaDto.directorId()));
+
         Pelicula p = editPeliculaDto.to(d);
+
 
         return peliculaRepository.save(p);
 
