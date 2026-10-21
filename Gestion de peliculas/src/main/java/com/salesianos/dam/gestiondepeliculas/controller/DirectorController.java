@@ -4,6 +4,7 @@ import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
 import com.salesianos.dam.gestiondepeliculas.dto.director.GetDirectorDetail;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.service.DirectorService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class DirectorController {
 
     @PostMapping
     public ResponseEntity<GetDirectorDetail> addDirector(
-            @RequestBody EditDirectorDto director) {
+            @Valid @RequestBody EditDirectorDto director) {
 
         return ResponseEntity.status(201)
                 .body(GetDirectorDetail.of(directorService.addDirector(director)));

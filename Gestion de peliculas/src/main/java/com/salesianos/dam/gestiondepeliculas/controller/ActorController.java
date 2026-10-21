@@ -6,6 +6,7 @@ import com.salesianos.dam.gestiondepeliculas.dto.director.GetDirectorDetail;
 import com.salesianos.dam.gestiondepeliculas.model.Actor;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.service.ActorService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class ActorController {
 
     @PostMapping
     public ResponseEntity<GetActorDetail> addActor(
-            @RequestBody EditActorDto actor) {
+           @Valid @RequestBody EditActorDto actor) {
 
         return ResponseEntity.status(201)
                 .body(GetActorDetail.of(actorService.addActor(actor)));

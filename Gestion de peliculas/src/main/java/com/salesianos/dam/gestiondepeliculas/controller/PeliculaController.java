@@ -1,12 +1,10 @@
 package com.salesianos.dam.gestiondepeliculas.controller;
 
-import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
-import com.salesianos.dam.gestiondepeliculas.dto.director.GetDirectorDetail;
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.EditPeliculaDto;
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.GetPeliculaDetail;
-import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.model.Pelicula;
 import com.salesianos.dam.gestiondepeliculas.service.PeliculaService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +21,7 @@ public class PeliculaController {
 
     @PostMapping
     public ResponseEntity<GetPeliculaDetail> addPelicula(
-            @RequestBody EditPeliculaDto pelicula) {
+           @Valid @RequestBody EditPeliculaDto pelicula) {
 
         return ResponseEntity.status(201)
                 .body(GetPeliculaDetail.of(peliculaService.addPelicula(pelicula)));
@@ -61,7 +59,7 @@ public class PeliculaController {
     @PutMapping("/{id}")
     public ResponseEntity<GetPeliculaDetail> updatePelicula(
             @PathVariable Long id,
-            @RequestBody EditPeliculaDto pelicula) {
+            @Valid @RequestBody EditPeliculaDto pelicula) {
 
         return ResponseEntity.ok(
                 GetPeliculaDetail.of(peliculaService.updatePelicula(id, pelicula)));
