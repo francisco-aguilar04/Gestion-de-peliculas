@@ -40,3 +40,9 @@ GET http://localhost:8080/actor
 
 ### GET Traer actor según ID
 GET http://localhost:8080/actor/1
+
+### GET Traer peliculas
+GET http://localhost:8080/api/v1/peliculas
+
+### GET Traer pelicula según ID
+GET http://localhost:8080/api/v1/peliculas/1

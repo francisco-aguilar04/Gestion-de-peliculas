@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PeliculaService {
@@ -28,14 +30,6 @@ public class PeliculaService {
 
     }
 
-    @Transactional(readOnly = true)
-    public Pelicula findById(Long peliculaId) {
-
-        return peliculaRepository.getReferenceById(peliculaId);
-
-    }
-
-    @Transactional
     public Pelicula addActorToPelicula(Long peliculaId, Long actorId) {
 
         Pelicula p = peliculaRepository.getReferenceById(peliculaId);
@@ -44,6 +38,19 @@ public class PeliculaService {
         p.getActores().add(a);
 
         return peliculaRepository.save(p);
+
+    }
+
+    public List<Pelicula> getAllPeliculas() {
+
+        List<Pelicula> result = peliculaRepository.findAll();
+
+        return result;
+    }
+
+    public Pelicula getPeliculaById(Long id) {
+
+        return peliculaRepository.findById(id).orElse(null);
 
     }
 
