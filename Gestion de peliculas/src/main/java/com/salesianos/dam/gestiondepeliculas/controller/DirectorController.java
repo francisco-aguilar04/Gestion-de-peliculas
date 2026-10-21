@@ -56,4 +56,12 @@ public class DirectorController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDirector(@PathVariable Long id) {
+
+        directorService.deleteDirector(id);
+        return ResponseEntity.noContent().build();
+
+    }
+
 }

@@ -64,3 +64,8 @@ PUT http://localhost:8080/api/v1/peliculas/1
 "titulo": "La mazmorra del fauno",
 "genero": "Comedia"
 }
+
+
+
+### DELETE Borrar película
+DELETE http://localhost:8080/director/1

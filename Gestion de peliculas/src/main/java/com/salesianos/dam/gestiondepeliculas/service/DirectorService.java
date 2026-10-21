@@ -45,5 +45,9 @@ public class DirectorService {
                 }).orElse(null);
     }
 
+    public void deleteDirector(Long id) {
+
+        directorRepository.deleteById(id);
+    }
 
 }
