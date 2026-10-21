@@ -85,6 +85,15 @@ public class PeliculaService {
 
         return peliculaRepository.findById(id)
                 .map(p -> {
+
+                    String nuevoTitulo = editPeliculaDto.titulo();
+
+                    if (!nuevoTitulo.equals(p.getTitulo()) && peliculaRepository.existsByTitulo(nuevoTitulo)) {
+
+                        throw new PeliculaYaExistenteException("Ya existe una película con el título " + nuevoTitulo);
+
+                    }
+
                     Optional.ofNullable(editPeliculaDto.titulo()).ifPresent(p::setTitulo);
                     Optional.ofNullable(editPeliculaDto.genero()).ifPresent(p::setGenero);
                     Optional.ofNullable(editPeliculaDto.fechaEstreno()).ifPresent(p::setFechaEstreno);
