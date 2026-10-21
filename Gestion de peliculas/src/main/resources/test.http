@@ -69,3 +69,6 @@ PUT http://localhost:8080/api/v1/peliculas/1
 
 ### DELETE Borrar película
 DELETE http://localhost:8080/director/1
+
+### DELETE Borrar director
+DELETE http://localhost:8080/api/v1/peliculas/1
