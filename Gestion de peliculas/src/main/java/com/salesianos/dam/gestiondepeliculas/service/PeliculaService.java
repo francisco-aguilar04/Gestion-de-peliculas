@@ -67,4 +67,9 @@ public class PeliculaService {
                 }).orElse(null);
     }
 
+    public void deletePelicula(Long id) {
+
+        peliculaRepository.deleteById(id);
+    }
+
 }
