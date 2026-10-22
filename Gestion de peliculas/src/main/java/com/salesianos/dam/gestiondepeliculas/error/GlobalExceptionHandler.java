@@ -1,9 +1,9 @@
 package com.salesianos.dam.gestiondepeliculas.error;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.ActorNoEncontradoException;
-import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.DirectorNoEncontradoException;
-import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.PeliculaNoEncontradaException;
+import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.ActorNoEncontradoException;
+import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.DirectorNoEncontradoException;
+import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.PeliculaNoEncontradaException;
 import jakarta.annotation.Nullable;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ElementKind;

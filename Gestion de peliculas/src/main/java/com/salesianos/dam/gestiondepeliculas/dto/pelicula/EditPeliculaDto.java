@@ -2,6 +2,7 @@ package com.salesianos.dam.gestiondepeliculas.dto.pelicula;
 
 import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.model.Pelicula;
+import com.salesianos.dam.gestiondepeliculas.validacion.DirectorMayoriaEdad;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ public record EditPeliculaDto(
         @NotNull(message = "La fecha de estreno es obligatoria")
         LocalDate fechaEstreno,
 
+        @DirectorMayoriaEdad(message = "El director debe ser mayor de edad para lanzar una película")
         @NotNull(message = "El id del director es obligatorio")
         @Min(value = 1, message = "El id del director no es válido")
         Long directorId
