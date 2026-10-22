@@ -23,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1//director")
+@RequestMapping("/api/v1/director")
 @Tag(name = "Director Controller", description = "Gestión de los directores de las películas")
 public class DirectorController {
 
