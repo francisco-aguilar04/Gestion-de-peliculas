@@ -27,6 +27,12 @@ public class DirectorService {
 
         List<Director> result = directorRepository.findAll();
 
+        if (result.isEmpty()) {
+
+            throw new DirectorNoEncontradoException("No existen registros de ningún director.");
+
+        }
+
         return result;
     }
 

@@ -26,6 +26,12 @@ public class ActorService {
 
         List<Actor> result = actorRepository.findAll();
 
+        if (result.isEmpty()) {
+
+            throw new ActorNoEncontradoException("No existen registros de ningún actor.");
+
+        }
+
         return result;
     }
 
