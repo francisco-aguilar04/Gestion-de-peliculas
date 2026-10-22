@@ -1,7 +1,7 @@
 package com.salesianos.dam.gestiondepeliculas.service;
 
 import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
-import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.DirectorNoEncontradoException;
+import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.DirectorNoEncontradoException;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.repository.DirectorRepository;
 import lombok.RequiredArgsConstructor;

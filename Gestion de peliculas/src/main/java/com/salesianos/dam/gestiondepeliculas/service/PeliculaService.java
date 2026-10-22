@@ -2,9 +2,9 @@ package com.salesianos.dam.gestiondepeliculas.service;
 
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.EditPeliculaDto;
 import com.salesianos.dam.gestiondepeliculas.error.ActorYaEnRepartoException;
-import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.ActorNoEncontradoException;
-import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.DirectorNoEncontradoException;
-import com.salesianos.dam.gestiondepeliculas.error.NoEncontrado.PeliculaNoEncontradaException;
+import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.ActorNoEncontradoException;
+import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.DirectorNoEncontradoException;
+import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.PeliculaNoEncontradaException;
 import com.salesianos.dam.gestiondepeliculas.error.PeliculaYaExistenteException;
 import com.salesianos.dam.gestiondepeliculas.model.Actor;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
