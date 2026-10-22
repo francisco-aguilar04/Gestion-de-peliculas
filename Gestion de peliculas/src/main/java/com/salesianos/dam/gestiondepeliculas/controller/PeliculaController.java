@@ -59,7 +59,7 @@ public class PeliculaController {
     @PutMapping("/{id}")
     public ResponseEntity<GetPeliculaDetail> updatePelicula(
             @PathVariable Long id,
-            @Valid @RequestBody EditPeliculaDto pelicula) {
+            @RequestBody EditPeliculaDto pelicula) {
 
         return ResponseEntity.ok(
                 GetPeliculaDetail.of(peliculaService.updatePelicula(id, pelicula)));

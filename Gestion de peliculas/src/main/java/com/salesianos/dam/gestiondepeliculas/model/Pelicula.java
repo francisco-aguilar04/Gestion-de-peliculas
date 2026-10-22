@@ -1,6 +1,8 @@
 package com.salesianos.dam.gestiondepeliculas.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +22,9 @@ public class Pelicula {
     @Id @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String titulo;
+
     private String genero;
     private LocalDate fechaEstreno;
 

@@ -71,6 +71,12 @@ public class PeliculaService {
 
         List<Pelicula> result = peliculaRepository.findAll();
 
+        if (result.isEmpty()) {
+
+            throw new PeliculaNoEncontradaException("No existen registros de ninguna película. ");
+
+        }
+
         return result;
     }
 

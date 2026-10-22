@@ -2,9 +2,7 @@ package com.salesianos.dam.gestiondepeliculas.controller;
 
 import com.salesianos.dam.gestiondepeliculas.dto.actor.EditActorDto;
 import com.salesianos.dam.gestiondepeliculas.dto.actor.GetActorDetail;
-import com.salesianos.dam.gestiondepeliculas.dto.director.GetDirectorDetail;
 import com.salesianos.dam.gestiondepeliculas.model.Actor;
-import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.service.ActorService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -42,7 +40,7 @@ public class ActorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetActorDetail> getDirectorById(@PathVariable @Min(value = 1) Long id) {
+    public ResponseEntity<GetActorDetail> getActorById(@PathVariable @Min(value = 1) Long id) {
 
         return ResponseEntity.ok(GetActorDetail.of(actorService.getActorById(id)));
 
