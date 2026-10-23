@@ -255,6 +255,7 @@ public class DirectorController {
     @Operation(
             summary = "Borrar un director",
             description = "Permite borrar un director a partir de su identificador. "
+                    + "No se puede borrar un director que esté asociado a alguna película (devuelve 409). "
                     + "La operación es idempotente: si el director no existe, también devuelve 204"
     )
     @ApiResponses({
@@ -262,6 +263,27 @@ public class DirectorController {
                     responseCode = "204",
                     description = "Director borrado (o inexistente)",
                     content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "El director está asociado a una o más películas y no se puede borrar",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Error 409",
+                                    summary = "Director con películas asociadas",
+                                    value = """
+                                        {
+                                          "type": "https://example.com/errors/conflict",
+                                          "title": "El director tiene películas asociadas",
+                                          "status": 409,
+                                          "detail": "No se puede borrar el director de id 1 porque está asociado a una o más películas.",
+                                          "instance": "/api/v1/director/1"
+                                        }
+                                        """
+                            )
+                    )
             )
     })
     @DeleteMapping("/{id}")
