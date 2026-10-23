@@ -1,9 +1,11 @@
 package com.salesianos.dam.gestiondepeliculas.service;
 
 import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
+import com.salesianos.dam.gestiondepeliculas.error.DirectorConPeliculasException;
 import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.DirectorNoEncontradoException;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.repository.DirectorRepository;
+import com.salesianos.dam.gestiondepeliculas.repository.PeliculaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class DirectorService {
 
     private final DirectorRepository directorRepository;
+    private final PeliculaRepository peliculaRepository;
 
     public Director addDirector(EditDirectorDto editDirectorDto) {
 
@@ -55,6 +58,13 @@ public class DirectorService {
     }
 
     public void deleteDirector(Long id) {
+
+        if (peliculaRepository.existsByDirectorId(id)) {
+
+            throw new DirectorConPeliculasException(
+                    "No se puede borrar el director de id " + id + " porque está asociado a una o más películas.");
+
+        }
 
         directorRepository.deleteById(id);
     }

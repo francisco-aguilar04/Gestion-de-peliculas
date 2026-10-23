@@ -79,6 +79,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler(DirectorConPeliculasException.class)
+    public ProblemDetail handleDirectorConPeliculas(DirectorConPeliculasException ex) {
+
+        ProblemDetail problem = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problem.setTitle("No se puede eliminar un director asociado a alguna película");
+        problem.setDetail(ex.getMessage());
+        problem.setType(URI.create("https://example.com/errors/conflict"));
+
+        return problem;
+    }
+
     @Override
     protected @Nullable ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         ProblemDetail result = ProblemDetail
