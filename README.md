@@ -105,7 +105,7 @@ erDiagram
 
 ### DTOs
 
-Las entidades no se exponen directamente. Cada recurso tiene un DTO de entrada (`Edit...Dto`) y otro de salida (`Get...Detail`). La respuesta de una película usa **DTOs anidados**: contiene un `GetDirectorSimple` y una lista de `GetActorDetail`.
+Las entidades no se exponen directamente. Cada recurso tiene un DTO de entrada para crear (`Edit...Dto`), otro para actualizar (`Update...Dto`, solo en director y película) y otro de salida (`Get...Detail`). La respuesta de una película usa **DTOs anidados**: contiene un `GetDirectorSimple` y una lista de `GetActorDetail`.
 
 ---
 
@@ -263,7 +263,7 @@ Cada endpoint está documentado con su descripción, ejemplos de respuesta y tod
 | `POST` | `/api/v1/director` | Crear un director | 201, 400 |
 | `GET` | `/api/v1/director` | Listar todos los directores | 200, 404 |
 | `GET` | `/api/v1/director/{id}` | Obtener un director por id | 200, 400, 404 |
-| `PUT` | `/api/v1/director/{id}` | Actualizar un director | 200, 404 |
+| `PUT` | `/api/v1/director/{id}` | Actualizar un director | 200, 400, 404 |
 | `DELETE` | `/api/v1/director/{id}` | Borrar un director (solo si no tiene películas asociadas) | 204, 409 |
 
 ### Actores - `/api/v1/actor`
@@ -281,7 +281,7 @@ Cada endpoint está documentado con su descripción, ejemplos de respuesta y tod
 | `POST` | `/api/v1/peliculas` | Crear una película | 201, 400, 404, 409 |
 | `GET` | `/api/v1/peliculas` | Listar todas las películas | 200, 404 |
 | `GET` | `/api/v1/peliculas/{id}` | Obtener una película con su director y su reparto | 200, 400, 404 |
-| `PUT` | `/api/v1/peliculas/{id}` | Actualizar una película | 200, 404, 409 |
+| `PUT` | `/api/v1/peliculas/{id}` | Actualizar una película | 200, 400, 404, 409 |
 | `DELETE` | `/api/v1/peliculas/{id}` | Borrar una película | 204 |
 | `POST` | `/api/v1/peliculas/{peliculaId}/actores/{actorId}` | Asignar un actor al reparto de una película | 200, 404, 409 |
 
@@ -345,7 +345,9 @@ Sin cuerpo. Devuelve la película con el reparto actualizado:
 
 ## Validaciones
 
-Las validaciones se aplican con Jakarta Bean Validation sobre los DTOs de entrada de los `POST`.
+Las validaciones se aplican con Jakarta Bean Validation sobre los DTOs de entrada de los `POST` y de los `PUT`. Los `POST` usan los DTOs `Edit...Dto`, con todos los campos obligatorios. Los `PUT` usan los DTOs `Update...Dto`, cuyos campos son opcionales: solo se validan los que se envían.
+
+#### Creación (`POST`)
 
 | DTO | Campo | Reglas |
 |-----|-------|--------|
@@ -356,6 +358,18 @@ Las validaciones se aplican con Jakarta Bean Validation sobre los DTOs de entrad
 | | `genero` | Obligatorio, máximo 50 caracteres |
 | | `fechaEstreno` | Obligatoria |
 | | `directorId` | Obligatorio, mínimo 1, director mayor de edad |
+
+#### Actualización (`PUT`)
+
+| DTO | Campo | Reglas (si se envía) |
+|-----|-------|----------------------|
+| `UpdateDirectorDto` | `name` | No puede estar vacío, máximo 100 caracteres |
+| | `anioNacimiento` | Mínimo 1850 |
+| `UpdatePeliculaDto` | `titulo` | No puede estar vacío, máximo 150 caracteres |
+| | `genero` | No puede estar vacío, máximo 50 caracteres |
+| | `fechaEstreno` | Formato `yyyy-MM-dd` |
+
+El `PUT` de película no permite cambiar el director.
 
 ### Anotación personalizada: `@DirectorMayoriaEdad`
 

@@ -2,6 +2,7 @@ package com.salesianos.dam.gestiondepeliculas.controller;
 
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.EditPeliculaDto;
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.GetPeliculaDetail;
+import com.salesianos.dam.gestiondepeliculas.dto.pelicula.UpdatePeliculaDto;
 import com.salesianos.dam.gestiondepeliculas.model.Pelicula;
 import com.salesianos.dam.gestiondepeliculas.service.PeliculaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -387,16 +388,45 @@ public class PeliculaController {
                             examples = @ExampleObject(
                                     name = "Película actualizada",
                                     value = """
+                                        {
+                                          "id": 1,
+                                          "titulo": "La mazmorra del fauno",
+                                          "director": {
+                                            "id": 1,
+                                            "name": "Guillermo del Toro"
+                                          },
+                                          "actores": []
+                                        }
+                                        """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Datos de entrada no válidos",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Error 400",
+                                    summary = "Título vacío",
+                                    value = """
+                                        {
+                                          "type": "about:blank",
+                                          "title": "Bad Request",
+                                          "status": 400,
+                                          "detail": "Error de validación",
+                                          "instance": "/api/v1/peliculas/1",
+                                          "invalid-params": [
                                             {
-                                              "id": 1,
-                                              "titulo": "La mazmorra del fauno",
-                                              "director": {
-                                                "id": 1,
-                                                "name": "Guillermo del Toro"
-                                              },
-                                              "actores": []
+                                              "object": "updatePeliculaDto",
+                                              "message": "El título no puede estar vacío",
+                                              "field": "titulo",
+                                              "rejectedValue": ""
                                             }
-                                            """
+                                          ]
+                                        }
+                                        """
                             )
                     )
             ),
@@ -410,14 +440,14 @@ public class PeliculaController {
                                     name = "Error 404",
                                     summary = "Película no encontrada",
                                     value = """
-                                            {
-                                              "type": "https://example.com/errors/not-found",
-                                              "title": "No se ha encontrado la película",
-                                              "status": 404,
-                                              "detail": "No se encontró la película de id 99",
-                                              "instance": "/api/v1/peliculas/99"
-                                            }
-                                            """
+                                        {
+                                          "type": "https://example.com/errors/not-found",
+                                          "title": "No se ha encontrado la película",
+                                          "status": 404,
+                                          "detail": "No se encontró la película de id 99",
+                                          "instance": "/api/v1/peliculas/99"
+                                        }
+                                        """
                             )
                     )
             ),
@@ -431,14 +461,14 @@ public class PeliculaController {
                                     name = "Error 409",
                                     summary = "Título duplicado",
                                     value = """
-                                            {
-                                              "type": "https://example.com/errors/conflict",
-                                              "title": "Ya existe una película con ese título",
-                                              "status": 409,
-                                              "detail": "Ya existe una película con el título Batman Begins",
-                                              "instance": "/api/v1/peliculas/1"
-                                            }
-                                            """
+                                        {
+                                          "type": "https://example.com/errors/conflict",
+                                          "title": "Ya existe una película con ese título",
+                                          "status": 409,
+                                          "detail": "Ya existe una película con el título Batman Begins",
+                                          "instance": "/api/v1/peliculas/1"
+                                        }
+                                        """
                             )
                     )
             )
@@ -446,11 +476,10 @@ public class PeliculaController {
     @PutMapping("/{id}")
     public ResponseEntity<GetPeliculaDetail> updatePelicula(
             @PathVariable Long id,
-            @RequestBody EditPeliculaDto pelicula) {
+            @Valid @RequestBody UpdatePeliculaDto pelicula) {
 
         return ResponseEntity.ok(
                 GetPeliculaDetail.of(peliculaService.updatePelicula(id, pelicula)));
-
 
     }
 

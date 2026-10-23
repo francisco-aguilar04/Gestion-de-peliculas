@@ -2,6 +2,7 @@ package com.salesianos.dam.gestiondepeliculas.controller;
 
 import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
 import com.salesianos.dam.gestiondepeliculas.dto.director.GetDirectorDetail;
+import com.salesianos.dam.gestiondepeliculas.dto.director.UpdateDirectorDto;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
 import com.salesianos.dam.gestiondepeliculas.service.DirectorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -67,7 +68,7 @@ public class DirectorController {
                                               "title": "Bad Request",
                                               "status": 400,
                                               "detail": "Error de validación",
-                                              "instance": "/director",
+                                              "instance": "/api/v1/director",
                                               "invalid-params": [
                                                 {
                                                   "object": "editDirectorDto",
@@ -119,6 +120,27 @@ public class DirectorController {
                                                 "anioNacimiento": 1970
                                               }
                                             ]
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No hay ningún director registrado",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Error 404",
+                                    summary = "Sin directores",
+                                    value = """
+                                            {
+                                              "type": "https://example.com/errors/not-found",
+                                              "title": "No se ha encontrado al director",
+                                              "status": 404,
+                                              "detail": "No existen registros de ningún director.",
+                                              "instance": "/api/v1/director"
+                                            }
                                             """
                             )
                     )
@@ -181,7 +203,7 @@ public class DirectorController {
                                               "title": "No se ha encontrado al director",
                                               "status": 404,
                                               "detail": "No se encontró el director de id 99",
-                                              "instance": "/director/99"
+                                              "instance": "/api/v1/director/99"
                                             }
                                             """
                             )
@@ -220,6 +242,35 @@ public class DirectorController {
                     )
             ),
             @ApiResponse(
+                    responseCode = "400",
+                    description = "Datos de entrada no válidos",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Error 400",
+                                    summary = "Año de nacimiento no válido",
+                                    value = """
+                                            {
+                                              "type": "about:blank",
+                                              "title": "Bad Request",
+                                              "status": 400,
+                                              "detail": "Error de validación",
+                                              "instance": "/api/v1/director/1",
+                                              "invalid-params": [
+                                                {
+                                                  "object": "updateDirectorDto",
+                                                  "message": "El año de nacimiento no es válido",
+                                                  "field": "anioNacimiento",
+                                                  "rejectedValue": 1000
+                                                }
+                                              ]
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
                     responseCode = "404",
                     description = "No existe un director con ese id",
                     content = @Content(
@@ -234,7 +285,7 @@ public class DirectorController {
                                               "title": "No se ha encontrado al director",
                                               "status": 404,
                                               "detail": "No se encontró el director de id 99",
-                                              "instance": "/director/99"
+                                              "instance": "/api/v1/director/99"
                                             }
                                             """
                             )
@@ -244,11 +295,10 @@ public class DirectorController {
     @PutMapping("/{id}")
     public ResponseEntity<GetDirectorDetail> updateDirector(
             @PathVariable Long id,
-            @RequestBody EditDirectorDto director) {
+            @Valid @RequestBody UpdateDirectorDto director) {
 
         return ResponseEntity.ok(
                 GetDirectorDetail.of(directorService.updateDirector(id, director)));
-
 
     }
 
@@ -274,14 +324,14 @@ public class DirectorController {
                                     name = "Error 409",
                                     summary = "Director con películas asociadas",
                                     value = """
-                                        {
-                                          "type": "https://example.com/errors/conflict",
-                                          "title": "El director tiene películas asociadas",
-                                          "status": 409,
-                                          "detail": "No se puede borrar el director de id 1 porque está asociado a una o más películas.",
-                                          "instance": "/api/v1/director/1"
-                                        }
-                                        """
+                                            {
+                                              "type": "https://example.com/errors/conflict",
+                                              "title": "El director tiene películas asociadas",
+                                              "status": 409,
+                                              "detail": "No se puede borrar el director de id 1 porque está asociado a una o más películas.",
+                                              "instance": "/api/v1/director/1"
+                                            }
+                                            """
                             )
                     )
             )
