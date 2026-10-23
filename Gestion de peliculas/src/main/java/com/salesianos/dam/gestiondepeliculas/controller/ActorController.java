@@ -66,7 +66,7 @@ public class ActorController {
                                               "title": "Bad Request",
                                               "status": 400,
                                               "detail": "Error de validación",
-                                              "instance": "/actor",
+                                              "instance": "/api/v1/actor",
                                               "invalid-params": [
                                                 {
                                                   "object": "editActorDto",
@@ -116,6 +116,27 @@ public class ActorController {
                                                 "name": "Sergi López"
                                               }
                                             ]
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "No hay ningún actor registrado",
+                    content = @Content(
+                            mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class),
+                            examples = @ExampleObject(
+                                    name = "Error 404",
+                                    summary = "Sin actores",
+                                    value = """
+                                            {
+                                              "type": "https://example.com/errors/not-found",
+                                              "title": "No se ha encontrado al actor",
+                                              "status": 404,
+                                              "detail": "No existen registros de ningún actor.",
+                                              "instance": "/api/v1/actor"
+                                            }
                                             """
                             )
                     )
@@ -177,7 +198,7 @@ public class ActorController {
                                               "title": "No se ha encontrado al actor",
                                               "status": 404,
                                               "detail": "No se encontró al actor de id 99",
-                                              "instance": "/actor/99"
+                                              "instance": "/api/v1/actor/99"
                                             }
                                             """
                             )

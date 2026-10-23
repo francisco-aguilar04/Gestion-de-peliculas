@@ -1,6 +1,7 @@
 package com.salesianos.dam.gestiondepeliculas.service;
 
 import com.salesianos.dam.gestiondepeliculas.dto.pelicula.EditPeliculaDto;
+import com.salesianos.dam.gestiondepeliculas.dto.pelicula.UpdatePeliculaDto;
 import com.salesianos.dam.gestiondepeliculas.error.ActorYaEnRepartoException;
 import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.ActorNoEncontradoException;
 import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.DirectorNoEncontradoException;
@@ -87,12 +88,12 @@ public class PeliculaService {
 
     }
 
-    public Pelicula updatePelicula(Long id, EditPeliculaDto editPeliculaDto) {
+    public Pelicula updatePelicula(Long id, UpdatePeliculaDto updatePeliculaDto) {
 
         return peliculaRepository.findById(id)
                 .map(p -> {
 
-                    String nuevoTitulo = editPeliculaDto.titulo();
+                    String nuevoTitulo = updatePeliculaDto.titulo();
 
                     if (nuevoTitulo != null
                             && !nuevoTitulo.equals(p.getTitulo())
@@ -103,8 +104,8 @@ public class PeliculaService {
                     }
 
                     Optional.ofNullable(nuevoTitulo).ifPresent(p::setTitulo);
-                    Optional.ofNullable(editPeliculaDto.genero()).ifPresent(p::setGenero);
-                    Optional.ofNullable(editPeliculaDto.fechaEstreno()).ifPresent(p::setFechaEstreno);
+                    Optional.ofNullable(updatePeliculaDto.genero()).ifPresent(p::setGenero);
+                    Optional.ofNullable(updatePeliculaDto.fechaEstreno()).ifPresent(p::setFechaEstreno);
                     return peliculaRepository.save(p);
                 })
                 .orElseThrow(() -> new PeliculaNoEncontradaException("No se encontró la película de id " + id));

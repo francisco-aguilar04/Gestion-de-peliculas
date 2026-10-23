@@ -1,6 +1,7 @@
 package com.salesianos.dam.gestiondepeliculas.service;
 
 import com.salesianos.dam.gestiondepeliculas.dto.director.EditDirectorDto;
+import com.salesianos.dam.gestiondepeliculas.dto.director.UpdateDirectorDto;
 import com.salesianos.dam.gestiondepeliculas.error.DirectorConPeliculasException;
 import com.salesianos.dam.gestiondepeliculas.error.noEncontrado.DirectorNoEncontradoException;
 import com.salesianos.dam.gestiondepeliculas.model.Director;
@@ -46,12 +47,12 @@ public class DirectorService {
 
     }
 
-    public Director updateDirector(Long id, EditDirectorDto editDirectorDto) {
+    public Director updateDirector(Long id, UpdateDirectorDto updateDirectorDto) {
 
         return directorRepository.findById(id)
                 .map(d -> {
-                    Optional.ofNullable(editDirectorDto.name()).ifPresent(d::setName);
-                    Optional.ofNullable(editDirectorDto.anioNacimiento()).ifPresent(d::setAnioNacimiento);
+                    Optional.ofNullable(updateDirectorDto.name()).ifPresent(d::setName);
+                    Optional.ofNullable(updateDirectorDto.anioNacimiento()).ifPresent(d::setAnioNacimiento);
                     return directorRepository.save(d);
                 }).orElseThrow(() -> new DirectorNoEncontradoException("No se encontró el director de id " + id));
 
