@@ -28,6 +28,7 @@ Proyecto individual de **Acceso a Datos** y **Programación de Servicios y Proce
 
 - **Directores**
   - CRUD completo: crear, listar, consultar por id, actualizar y borrar.
+  - No se puede borrar un director que tenga películas asociadas (error `409 Conflict`).
 
 - **Películas**
   - CRUD completo: crear, listar, consultar por id, actualizar y borrar.
@@ -263,7 +264,7 @@ Cada endpoint está documentado con su descripción, ejemplos de respuesta y tod
 | `GET` | `/api/v1/director` | Listar todos los directores | 200, 404 |
 | `GET` | `/api/v1/director/{id}` | Obtener un director por id | 200, 400, 404 |
 | `PUT` | `/api/v1/director/{id}` | Actualizar un director | 200, 404 |
-| `DELETE` | `/api/v1/director/{id}` | Borrar un director | 204 |
+| `DELETE` | `/api/v1/director/{id}` | Borrar un director (solo si no tiene películas asociadas) | 204, 409 |
 
 ### Actores - `/api/v1/actor`
 
@@ -288,8 +289,9 @@ Cada endpoint está documentado con su descripción, ejemplos de respuesta y tod
 
 - Los `PUT` de director y de película son **actualizaciones parciales**: solo se modifican los campos que se envían en el cuerpo.
 - Los `DELETE` son **idempotentes**: devuelven `204 No Content` aunque el recurso ya no exista.
+- Un director **no se puede borrar si tiene películas asociadas**: la API responde `409 Conflict`. Hay que borrar antes sus películas.
 - Los listados devuelven `404` cuando todavía no hay ningún registro.
-- Los ids de las rutas deben ser mayores o iguales que 1.
+- Los ids de las rutas de consulta (`GET`) deben ser mayores o iguales que 1.
 
 ### Ejemplos
 
@@ -374,6 +376,7 @@ Todos los errores se devuelven en formato `ProblemDetail` (RFC 9457), gestionado
 | `ActorNoEncontradoException` | **404** | El actor no existe, o no hay ninguno registrado |
 | `PeliculaYaExistenteException` | **409** | Se crea o actualiza una película con un título que ya existe |
 | `ActorYaEnRepartoException` | **409** | Se asigna un actor que ya está en el reparto de la película |
+| `DirectorConPeliculasException` | **409** | Se intenta borrar un director que tiene películas asociadas |
 | Error de validación | **400** | Algún campo del cuerpo incumple las reglas de validación |
 
 Se usa **409 Conflict** para los duplicados porque la petición es correcta pero choca con un recurso que ya existe.
@@ -387,6 +390,20 @@ Se usa **409 Conflict** para los duplicados porque la petición es correcta pero
   "status": 409,
   "detail": "El actor de id 1 ya está en el reparto de la película",
   "instance": "/api/v1/peliculas/1/actores/1"
+}
+```
+
+### Ejemplo de error 409 al borrar un director con películas
+
+`DELETE /api/v1/director/1`
+
+```json
+{
+  "type": "https://example.com/errors/conflict",
+  "title": "El director tiene películas asociadas",
+  "status": 409,
+  "detail": "No se puede borrar el director de id 1 porque está asociado a una o más películas.",
+  "instance": "/api/v1/director/1"
 }
 ```
 
@@ -418,7 +435,7 @@ Los errores de validación incluyen la lista de campos incorrectos en `invalid-p
 
 El repositorio incluye dos formas de probar todos los endpoints, con casos correctos y casos de error (400, 404 y 409):
 
-- **Colección de Postman:** `Gestión_de_cine_postman_collection.json`. Se importa desde Postman con *Import*.
+- **Colección de Postman:** `Gestión de cine.postman_collection.json`. Se importa desde Postman con *Import*.
 - **Archivo HTTP:** `Gestion de peliculas/src/main/resources/test.http`. Se puede ejecutar directamente desde IntelliJ IDEA.
 
 ### Orden recomendado para una prueba rápida
@@ -449,4 +466,5 @@ Gestión de Películas es una API REST basada en Spring Boot que incorpora:
 
 ## Autor
 
-Francisco Aguilar
+Francisco Aguilar  
+GitHub: [francisco-aguilar04](https://github.com/francisco-aguilar04)
