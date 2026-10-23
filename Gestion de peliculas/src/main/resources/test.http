@@ -1,0 +1,227 @@
+########## DIRECTOR ##########
+
+### Crear director
+POST http://localhost:8080/api/v1/director
+Content-Type: application/json
+
+{
+  "name": "James Gunn",
+  "anioNacimiento": 1966
+}
+
+### Crear director menor de edad
+POST http://localhost:8080/api/v1/director
+Content-Type: application/json
+
+{
+  "name": "Christopher Nolan",
+  "anioNacimiento": 2020
+}
+
+### Crear director sin año de nacimiento (400)
+POST http://localhost:8080/api/v1/director
+Content-Type: application/json
+
+{
+  "name": "James Gunn",
+  "anioNacimiento": null
+}
+
+### Crear director sin nombre (400)
+POST http://localhost:8080/api/v1/director
+Content-Type: application/json
+
+{
+  "name": "",
+  "anioNacimiento": 1966
+}
+
+### Traer director por ID
+GET http://localhost:8080/api/v1/director/1
+
+### Traer todos los directores
+GET http://localhost:8080/api/v1/director
+
+### Traer director inexistente (404)
+GET http://localhost:8080/api/v1/director/999
+
+### Todos los directores sin existir ninguno (404)
+GET http://localhost:8080/api/v1/director
+
+### Actualizar director
+PUT http://localhost:8080/api/v1/director/1
+Content-Type: application/json
+
+{
+  "name": "Jaime Pistola"
+}
+
+### Actualizar director inexistente (404)
+PUT http://localhost:8080/api/v1/director/999
+Content-Type: application/json
+
+{
+  "name": "Jaime Pistola"
+}
+
+### Borrar director con películas asociadas (409)
+DELETE http://localhost:8080/api/v1/director/1
+
+### Borrar director sin películas
+DELETE http://localhost:8080/api/v1/director/2
+
+
+########## ACTOR ##########
+
+### Crear actor
+POST http://localhost:8080/api/v1/actor
+Content-Type: application/json
+
+{
+  "name": "Tom Holland"
+}
+
+### Asignar actor a película
+POST http://localhost:8080/api/v1/peliculas/1/actores/1
+
+### Asignar actor a película dos veces (409)
+POST http://localhost:8080/api/v1/peliculas/1/actores/1
+
+### Crear actor sin nombre (400)
+POST http://localhost:8080/api/v1/actor
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+### Asignar actor a película inexistente (404)
+POST http://localhost:8080/api/v1/peliculas/999/actores/1
+
+### Asignar actor inexistente a película (404)
+POST http://localhost:8080/api/v1/peliculas/1/actores/999
+
+### Traer actor por ID
+GET http://localhost:8080/api/v1/actor/1
+
+### Traer todos los actores
+GET http://localhost:8080/api/v1/actor
+
+### Traer todos los actores sin existir ninguno (404)
+GET http://localhost:8080/api/v1/actor
+
+### Traer actor inexistente (404)
+GET http://localhost:8080/api/v1/actor/999
+
+
+########## PELICULAS ##########
+
+### Crear pelicula
+POST http://localhost:8080/api/v1/peliculas
+Content-Type: application/json
+
+{
+  "titulo": "El laberinto del fauno",
+  "genero": "Fantasía",
+  "fechaEstreno": "2006-10-11",
+  "directorId": 1
+}
+
+### Crear pelicula con director menor de edad (400)
+POST http://localhost:8080/api/v1/peliculas
+Content-Type: application/json
+
+{
+  "titulo": "El laberinto del fauno",
+  "genero": "Fantasía",
+  "fechaEstreno": "2006-10-11",
+  "directorId": 2
+}
+
+### Crear pelicula con director inexistente (404)
+POST http://localhost:8080/api/v1/peliculas
+Content-Type: application/json
+
+{
+  "titulo": "Titulo pelicula",
+  "genero": "Fantasía",
+  "fechaEstreno": "2006-10-11",
+  "directorId": 999
+}
+
+### Crear pelicula con titulo duplicado (409)
+POST http://localhost:8080/api/v1/peliculas
+Content-Type: application/json
+
+{
+  "titulo": "El laberinto del fauno",
+  "genero": "Fantasía",
+  "fechaEstreno": "2006-10-11",
+  "directorId": 1
+}
+
+### Crear pelicula sin fecha (400)
+POST http://localhost:8080/api/v1/peliculas
+Content-Type: application/json
+
+{
+  "titulo": "El laberinto del fauno",
+  "genero": "Fantasía",
+  "fechaEstreno": "",
+  "directorId": 1
+}
+
+### Crear pelicula sin género (400)
+POST http://localhost:8080/api/v1/peliculas
+Content-Type: application/json
+
+{
+  "titulo": "El laberinto del fauno",
+  "genero": "",
+  "fechaEstreno": "2006-10-11",
+  "directorId": 1
+}
+
+### Crear pelicula sin nombre(400)
+POST http://localhost:8080/api/v1/peliculas
+Content-Type: application/json
+
+{
+  "titulo": "",
+  "genero": "Fantasía",
+  "fechaEstreno": "2006-10-11",
+  "directorId": 1
+}
+
+### Traer todas las peliculas
+GET http://localhost:8080/api/v1/peliculas
+
+### Traer pelicula segun ID
+GET http://localhost:8080/api/v1/peliculas/1
+
+### Traer todas las peliculas sin existir ninguna (404)
+GET http://localhost:8080/api/v1/peliculas
+
+### Traer pelicula inexistente (404)
+GET http://localhost:8080/api/v1/peliculas/999
+
+### Actualizar pelicula
+PUT http://localhost:8080/api/v1/peliculas/1
+Content-Type: application/json
+
+{
+  "titulo": "La mazmorra del fauno",
+  "genero": "Comedia"
+}
+
+### Actualizar pelicula inexistente(404)
+PUT http://localhost:8080/api/v1/peliculas/999
+Content-Type: application/json
+
+{
+  "titulo": "La mazmorra del fauno",
+  "genero": "Comedia"
+}
+
+### Borrar pelicula
+DELETE http://localhost:8080/api/v1/peliculas/1

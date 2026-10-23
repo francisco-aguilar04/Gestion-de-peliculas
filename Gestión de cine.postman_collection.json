@@ -1,0 +1,1010 @@
+{
+  "info": {
+    "_postman_id": "50f9d858-c1e1-4645-bcf5-7955bf6116cd",
+    "name": "Gestión de cine",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58520537",
+    "_collection_link": "https://go.postman.co/collection/58520537-50f9d858-c1e1-4645-bcf5-7955bf6116cd?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Director",
+      "item": [
+        {
+          "name": "Post",
+          "item": [
+            {
+              "name": "Crear director",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "/*{\r\n  \"name\": \"Guillermo del Toro\",\r\n  \"anioNacimiento\": 1964\r\n}\r\n\r\n{\r\n  \"name\": \"Zack Snyder\",\r\n  \"anioNacimiento\": 1966\r\n}\r\n{\r\n  \"name\": \"Christopher Nolan\",\r\n  \"anioNacimiento\": 1970\r\n}*/\r\n{\r\n  \"name\": \"James Gunn\",\r\n  \"anioNacimiento\": 1966\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear director menor de edad",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "/*{\r\n  \"name\": \"Guillermo del Toro\",\r\n  \"anioNacimiento\": 1964\r\n}\r\n\r\n{\r\n  \"name\": \"Zack Snyder\",\r\n  \"anioNacimiento\": 1966\r\n}\r\n*/\r\n{\r\n  \"name\": \"Christopher Nolan\",\r\n  \"anioNacimiento\": 2020\r\n}\r\n/*\r\n{\r\n  \"name\": \"James Gunn\",\r\n  \"anioNacimiento\": 1966\r\n}\r\n*/",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear director sin año de nacimiento (400)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "/*{\r\n  \"name\": \"Guillermo del Toro\",\r\n  \"anioNacimiento\": 1964\r\n}\r\n\r\n{\r\n  \"name\": \"Zack Snyder\",\r\n  \"anioNacimiento\": 1966\r\n}\r\n{\r\n  \"name\": \"Christopher Nolan\",\r\n  \"anioNacimiento\": 1970\r\n}*/\r\n{\r\n  \"name\": \"James Gunn\",\r\n  \"anioNacimiento\": null\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear director sin nombre (400)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "/*{\r\n  \"name\": \"Guillermo del Toro\",\r\n  \"anioNacimiento\": 1964\r\n}\r\n\r\n{\r\n  \"name\": \"Zack Snyder\",\r\n  \"anioNacimiento\": 1966\r\n}\r\n{\r\n  \"name\": \"Christopher Nolan\",\r\n  \"anioNacimiento\": 1970\r\n}*/\r\n{\r\n  \"name\": \"\",\r\n  \"anioNacimiento\": 1966\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get",
+          "item": [
+            {
+              "name": "Traer director por ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Traer todos los directores",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Traer director inexistente (404)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director/999",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director",
+                    "999"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Todos los directores sin existir ninguno (404)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Put",
+          "item": [
+            {
+              "name": "Actualizar director",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Jaime Pistola\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Actualizar director inexistente (404)",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"Jaime Pistola\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director/999",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director",
+                    "999"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Delete",
+          "item": [
+            {
+              "name": "Borrar director con películas asociadas (409)",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Borrar director sin películas",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/director/2",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "director",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Actor",
+      "item": [
+        {
+          "name": "Post",
+          "item": [
+            {
+              "name": "Crear actor",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Tom Holland\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/actor",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "actor"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Asignar actor a película",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas/1/actores/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas",
+                    "1",
+                    "actores",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Asignar actor a película dos veces (409)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas/1/actores/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas",
+                    "1",
+                    "actores",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear actor sin nombre (400)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/actor",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "actor"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Asignar actor a película inexistente (404)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas/999/actores/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas",
+                    "999",
+                    "actores",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Asignar actor inexistente a película (404)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas/1/actores/999",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas",
+                    "1",
+                    "actores",
+                    "999"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get",
+          "item": [
+            {
+              "name": "Traer actor por ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/actor/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "actor",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Traer todos los actores",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/actor",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "actor"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Traer todos los actores sin existir ninguno (404)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/actor",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "actor"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Traer actor inexistente (404)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/actor/999",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "actor",
+                    "999"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Peliculas",
+      "item": [
+        {
+          "name": "Post",
+          "item": [
+            {
+              "name": "Crear pelicula",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n  \"titulo\": \"El laberinto del fauno\",\r\n  \"genero\": \"Fantasía\",\r\n  \"fechaEstreno\": \"2006-10-11\",\r\n  \"directorId\": 1\r\n}\r\n/*\r\n{\r\n    \"titulo\": \"Interstellar\",\r\n    \"genero\": \"Ciencia ficción\",\r\n    \"fechaEstreno\": \"2014-11-07\",\r\n    \"directorId\": 1\r\n  }\r\n*/",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear pelicula con director menor de edad (400)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n  \"titulo\": \"El laberinto del fauno\",\r\n  \"genero\": \"Fantasía\",\r\n  \"fechaEstreno\": \"2006-10-11\",\r\n  \"directorId\": 2\r\n}\r\n/*\r\n{\r\n    \"titulo\": \"Interstellar\",\r\n    \"genero\": \"Ciencia ficción\",\r\n    \"fechaEstreno\": \"2014-11-07\",\r\n    \"directorId\": 1\r\n  }\r\n*/",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear pelicula con director inexistente (404)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n  \"titulo\": \"Titulo pelicula\",\r\n  \"genero\": \"Fantasía\",\r\n  \"fechaEstreno\": \"2006-10-11\",\r\n  \"directorId\": 999\r\n}\r\n/*\r\n{\r\n    \"titulo\": \"Interstellar\",\r\n    \"genero\": \"Ciencia ficción\",\r\n    \"fechaEstreno\": \"2014-11-07\",\r\n    \"directorId\": 1\r\n  }\r\n*/",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear pelicula con titulo duplicado (409)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n  \"titulo\": \"El laberinto del fauno\",\r\n  \"genero\": \"Fantasía\",\r\n  \"fechaEstreno\": \"2006-10-11\",\r\n  \"directorId\": 1\r\n}\r\n/*\r\n{\r\n    \"titulo\": \"Interstellar\",\r\n    \"genero\": \"Ciencia ficción\",\r\n    \"fechaEstreno\": \"2014-11-07\",\r\n    \"directorId\": 1\r\n  }\r\n*/",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear pelicula sin fecha (400)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n  \"titulo\": \"El laberinto del fauno\",\r\n  \"genero\": \"Fantasía\",\r\n  \"fechaEstreno\": \"\",\r\n  \"directorId\": 1\r\n}\r\n/*\r\n{\r\n    \"titulo\": \"Interstellar\",\r\n    \"genero\": \"Ciencia ficción\",\r\n    \"fechaEstreno\": \"2014-11-07\",\r\n    \"directorId\": 1\r\n  }\r\n*/",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear pelicula sin género (400)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n  \"titulo\": \"El laberinto del fauno\",\r\n  \"genero\": \"\",\r\n  \"fechaEstreno\": \"2006-10-11\",\r\n  \"directorId\": 1\r\n}\r\n/*\r\n{\r\n    \"titulo\": \"Interstellar\",\r\n    \"genero\": \"Ciencia ficción\",\r\n    \"fechaEstreno\": \"2014-11-07\",\r\n    \"directorId\": 1\r\n  }\r\n*/",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Crear pelicula sin nombre(400)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n  \"titulo\": \"\",\r\n  \"genero\": \"Fantasía\",\r\n  \"fechaEstreno\": \"2006-10-11\",\r\n  \"directorId\": 1\r\n}\r\n/*\r\n{\r\n    \"titulo\": \"Interstellar\",\r\n    \"genero\": \"Ciencia ficción\",\r\n    \"fechaEstreno\": \"2014-11-07\",\r\n    \"directorId\": 1\r\n  }\r\n*/",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get",
+          "item": [
+            {
+              "name": "Traer todas las peliculas",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Traer pelicula segun ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Traer todas las peliculas sin existir ninguna (404)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Traer pelicula inexistente (404)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas/999",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas",
+                    "999"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Put",
+          "item": [
+            {
+              "name": "Actualizar pelicula",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"titulo\": \"La mazmorra del fauno\",\r\n    \"genero\": \"Comedia\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Actualizar pelicula inexistente(404)",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"titulo\": \"La mazmorra del fauno\",\r\n    \"genero\": \"Comedia\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas/999",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas",
+                    "999"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Delete",
+          "item": [
+            {
+              "name": "Borrar pelicula",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/peliculas/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "peliculas",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
